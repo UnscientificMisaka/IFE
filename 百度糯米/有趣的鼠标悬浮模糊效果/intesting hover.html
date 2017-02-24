@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>有趣的鼠标悬浮模糊效果</title>
+	</head>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+	
+		img{
+			filter: blur(0px);
+		
+		}
+	
+		
+		img:hover{
+			filter: blur(3px);
+			transition: filter 3s;
+			-moz-transition:filter 3s; /* Firefox 4 */
+			-webkit-transition:filter 3s; /* Safari and Chrome */
+			-o-transition:filter 3s; /* Opera */
+		}
+		
+		.show{
+			width: 700px;
+			height: 394px;
+		}
+		
+		.show p{
+			position: relative;
+			top:-220px;
+			text-align: center;
+			opacity: 0;
+			color: #fff;
+			font-size: 20px;
+			font-weight: 900;
+			font-family: "comic sans ms";
+			background: linear-gradient(left, #147B96, #E6D205 25%, #147B96 50%, #E6D205 75%, #147B96);
+			background: -webkit-linear-gradient(left, #147B96, #E6D205 25%, #147B96 50%, #E6D205 75%, #147B96); 
+			background: -o-radial-gradient(left, #147B96, #E6D205 25%, #147B96 50%, #E6D205 75%, #147B96); 
+			background: -moz-radial-gradient(left, #147B96, #E6D205 25%, #147B96 50%, #E6D205 75%, #147B96); 
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			-webkit-background-size: 200% 100%;
+			animation: text-gradiention 9s linear  infinite;
+			-moz-animation: text-gradiention 9s linear  infinite;	/* Firefox */
+			-webkit-animation: text-gradiention 9s linear  infinite;	/* Safari 和 Chrome */
+			-o-animation: text-gradiention 9s linear  infinite;
+		}
+		
+		.horizontal{
+			width: 0;
+			height: 2px;
+			margin: 0 auto;
+			background: #fff;
+			animation: updown 9s;
+			-moz-animation: updown 9s infinite;	/* Firefox */
+			-webkit-animation: updown 9s infinite;	/* Safari 和 Chrome */
+			-o-animation: updown 9s infinite;	/* Opera */
+		}
+		
+		.vertical{
+			width: 1px;
+			height: 0;
+			background: #fff;
+			animation: leftright 9s;
+			-moz-animation: leftright 9s infinite;	/* Firefox */
+			-webkit-animation: leftright 9s infinite;	/* Safari 和 Chrome */
+			-o-animation: leftright 9s infinite;	/* Opera*/
+		}
+		
+		.up{
+			position: relative;
+			top:-260px;
+		}
+		
+		.down{
+			position: relative;
+			top:-200px;
+		}
+		
+		.left{
+			position: relative;
+			top: -262px;
+			left: 133px;
+		}
+		
+		.right{
+			position: relative;
+			top: -322px;
+			left: 564px;
+		}
+		
+		@keyframes text-gradiention{
+			0%{
+				background-position: 0 0;
+				opacity: 0;
+			}
+			
+			30%{
+				opacity: 1;	
+				background-position: -100% 0;
+			}
+			
+			90%{
+				opacity: 1;	
+				background-position: 0 0;
+			}
+			
+			100%{
+				opacity: 0;
+				background-position: -100% 0;
+			}
+		}
+		
+		@keyframes updown{
+			0%{
+				width: 100px;
+				opacity: 0;
+			}
+			30%{
+				width: 430px;
+				opacity: 1;
+			}
+			
+			90%{
+				width: 430px;
+				opacity: 1;
+			}
+			
+			100%{
+				width: 0px;
+				opacity: 0;
+			}
+		}
+		
+		@keyframes leftright{
+			0%{
+				height: 61px;
+				opacity: 0;
+			}
+			
+			30%{
+				height: 61px;
+				opacity: 1;
+			}
+			
+			90%{
+				height: 61px;
+				opacity: 1;
+			}
+			
+			100%{
+				height: 61px;
+				opacity: 0;
+		}
+		
+		
+	</style>
+	<body>
+		<div class="show">
+			<img src="20160202151301_MHRax.thumb.700_0.jpeg">
+			<p>Baidu institute Front End Technology</p>
+			<div class="horizontal up "></div>
+			<div class="horizontal down"></div>
+			<div class="vertical left"></div>
+			<div class="vertical right"></div>
+		</div>
+		
+	</body>
+</html>
