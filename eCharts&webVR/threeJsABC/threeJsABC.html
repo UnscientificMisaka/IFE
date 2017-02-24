@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>three.js入门</title>
+		<script type="text/javascript" src="../three.js" ></script>
+	</head>
+	<style>
+		#main{
+			width: 1200px;
+			height: 600px;			
+		}
+		
+	</style>
+	<body>
+		<canvas id="main">
+			
+		</canvas>
+
+		<script>
+			var render = new THREE.WebGLRenderer({
+				canvas:document.getElementById("main")
+			});
+			
+			var light = new THREE.DirectionalLight(0x0000FF,1.0,0);
+			light.position.set(50,50,50);
+			
+			var scene = new THREE.Scene();
+			
+			var camera = new THREE.OrthographicCamera(-15, 15, 4, -4, 1, 10);
+			camera.position.set(0, 0, 5);
+			scene.add(camera);
+			camera.lookAt(new THREE.Vector3(0, 0, 0));
+			
+			var wheel1 = new THREE.Mesh(new THREE.TorusGeometry(3, 1, 12, 18),
+			        new THREE.MeshBasicMaterial({
+			            color: "#fff",
+			            wireframe: true
+			        })
+			);
+			wheel1.position.set(10,200,10);
+			
+			
+			var wheel2 = new THREE.Mesh(new THREE.TorusGeometry(3, 1, 12, 18),
+			        new THREE.MeshLambertMaterial({
+			            color: "#fff",
+			            wireframe: true
+			        })
+			);
+			
+			scene.add(light);
+			scene.add(wheel1);
+			scene.add(wheel2);			
+			
+			render.setClearColor("grey");
+			render.render(scene, camera);
+			
+		
+			
+		</script>
+	</body>
+</html>

@@ -12,7 +12,11 @@
 	
 		img{
 			filter: blur(0px);
-		
+			border-radius: 9px;
+			transition: filter 3s;
+			-moz-transition:filter 3s; /* Firefox 4 */
+			-webkit-transition:filter 3s; /* Safari and Chrome */
+			-o-transition:filter 3s; /* Opera */
 		}
 	
 		
@@ -24,16 +28,19 @@
 			-o-transition:filter 3s; /* Opera */
 		}
 		
+		
+		
 		.show{
 			width: 700px;
 			height: 394px;
+			margin: 150px auto;
 		}
 		
 		.show p{
 			position: relative;
 			top:-220px;
 			text-align: center;
-			opacity: 0;
+			/*opacity: 0;*/
 			color: #fff;
 			font-size: 20px;
 			font-weight: 900;
@@ -44,7 +51,7 @@
 			background: -moz-radial-gradient(left, #147B96, #E6D205 25%, #147B96 50%, #E6D205 75%, #147B96); 
 			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;
-			-webkit-background-size: 200% 100%;
+			-webkit-background-size: 100% 100%;
 			animation: text-gradiention 9s linear  infinite;
 			-moz-animation: text-gradiention 9s linear  infinite;	/* Firefox */
 			-webkit-animation: text-gradiention 9s linear  infinite;	/* Safari 和 Chrome */
@@ -85,14 +92,24 @@
 		.left{
 			position: relative;
 			top: -262px;
-			left: 133px;
+			left: -214px;
+			right: 0;
+			margin:auto;
+	
 		}
 		
 		.right{
 			position: relative;
 			top: -322px;
-			left: 564px;
+			left: 214px;
+			right: 0;
+			bottom: 0;
+			margin: auto;
 		}
+		
+		/*p:before{
+			content: "";
+			box-sizing:border-box ;*/
 		
 		@keyframes text-gradiention{
 			0%{
