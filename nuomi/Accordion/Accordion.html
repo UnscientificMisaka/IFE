@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>CSS实现可折叠的面板</title>
+	</head>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+		
+			body{
+				font-family: "微软雅黑";	
+			}
+			
+			input[type="radio"]{
+				display: none;
+			}
+			
+			label{
+				cursor: pointer;
+			}
+			
+			
+			.container{
+				width: 500px;
+				margin: 0 auto;
+			}
+			
+			@-webkit-keyframes contentShow{
+				0%{
+					opacity: 0;
+					height: 0px;
+				}
+				70%{
+					opacity: 0;
+					height: 240px;
+				}
+				100%{
+					opacity: 1;
+					/*height: 261px;*/
+				}
+			}
+			
+			input[type="radio"]:checked + .content{
+				display: block;
+				-webkit-animation: contentShow 1s linear;
+			}
+			
+
+			
+			
+			.title{
+				width: 500px;
+				height: 40px;
+				font-size: 20px;
+				line-height: 40px;
+				background: gainsboro;
+				border: 1px solid #ccc;
+				border-radius: 3px;
+			}
+			
+			.content{
+				width: 480px;
+				display: none;
+				font-size: 16px;
+				line-height: 40px;
+				border: 1px solid #ccc;
+				border-radius: 3px;
+				border-top: none;
+				padding: 10px;
+		
+			}
+			
+		
+			
+		</style>
+	<body>
+		<div class="container">
+			<div class="panel">
+				
+				<label class="test" for="first">
+					<div class="title">First</div>
+				</label>
+				<input type="radio" id="first" name="panel" />
+				<div class="content ">
+					任务目的 深入理解html中radio的特性 深入理解CSS选择器以及伪元素的使用 任务描述 使用input的radio单选框特性结合CSS中的伪元素实现bootstrap中折叠面板(点击查看样例)，要求样式一致。 任务注意事项 当其中一个面对折叠时，其他面板需要隐藏 只能使用HTML，CSS，不允许使用JavaScript 注意测试不同情况，尤其是极端情况下的效果 有能力的同学在面板折叠或者展开时添加动画效果
+				</div>
+			</div>
+			<div class="panel">
+				
+				<label for="second">
+					<div class="title">Second</div>
+				</label>
+				<input type="radio" id="second" name="panel" />
+				<div class="content ">
+					任务目的 深入理解html中radio的特性 深入理解CSS选择器以及伪元素的使用 任务描述 使用input的radio单选框特性结合CSS中的伪元素实现bootstrap中折叠面板(点击查看样例)，要求样式一致。 任务注意事项 当其中一个面对折叠时，其他面板需要隐藏 只能使用HTML，CSS，不允许使用JavaScript 注意测试不同情况，尤其是极端情况下的效果 有能力的同学在面板折叠或者展开时添加动画效果
+				</div>
+			</div>
+			<div class="panel">
+				
+				<label for="third">
+					<div class="title">Third</div>
+				</label>
+				<input type="radio" id="third" name="panel" />
+				<div class="content">
+					任务目的 深入理解html中radio的特性 深入理解CSS选择器以及伪元素的使用 任务描述 使用input的radio单选框特性结合CSS中的伪元素实现bootstrap中折叠面板(点击查看样例)，要求样式一致。 任务注意事项 当其中一个面对折叠时，其他面板需要隐藏 只能使用HTML，CSS，不允许使用JavaScript 注意测试不同情况，尤其是极端情况下的效果 有能力的同学在面板折叠或者展开时添加动画效果
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
