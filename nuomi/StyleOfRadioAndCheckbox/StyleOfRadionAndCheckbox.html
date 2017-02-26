@@ -35,7 +35,6 @@
 	
 		
 		input[type="radio"]:checked + i{
-			border-radius:50%;
 			background: #ccc;
 			
 		}
@@ -44,16 +43,59 @@
 			background: #ccc;
 		}
 		
+		.pseudo-radio{
+			margin-left: 25px;
+		}
 		
+		.pseudo-check{
+			margin-left: 25px;
+		}
 		
+		.pseudo-radio:before{
+			content: "";
+			width: 20px;
+			height: 20px;
+			position: absolute;
+			top: 106px;
+			left: 15px;
+			border: 1px solid #ccc;
+			border-radius: 50%;
+		}
+		
+		 input[type="radio"]:checked  + .pseudo-radio:before{
+			border: 6px solid #ccc;
+			width: 10px;
+			height: 10px;
+			background: #fff;
+			
+		}
+		
+		.pseudo-check:before{
+			content: "";
+			width: 20px;
+			height: 20px;
+			position: absolute;
+			top: 146px;
+			left: 15px;
+			border: 1px solid #ccc;
+		}
+		
+		input[type="checkbox"]:checked  + .pseudo-check:before{
+			content: "✓";
+			width: 20px;
+			height: 20px;
+			color: #fff;
+			background: #ccc;
+			
+		}
 	</style>
 	<body>
 		<label class="sex" for="sex">
-			<input type="radio" id="sex"/>
+			<input type="radio" name ="sex" id="sex"/>
 			<i class="radio">✓</i>
-			Sex
+			Boy
 		</label>
-	</br>
+		</br>
 		
 		
 		<label for="grade">
@@ -61,5 +103,15 @@
 			<i class="check">✓</i>
 			Grade
 		</label>
+		</br>
+	
+		<input type="radio" name="sex" id="sexGirl" />
+		<label class="pseudo-radio" for="sexGirl">Girl</label>
+		
+		</br>
+		
+		<input type="checkbox" id="two"/>
+		<label class="pseudo-check" for="two">Grade</label>
+		
 	</body>
 </html>
