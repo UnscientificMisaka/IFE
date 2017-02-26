@@ -53,11 +53,12 @@
 			height: auto;
 			width: 230px;
 			border: 1px solid #c0c0c0;
+			display: none;
 		}
 	</style>
 	<body>
 		<div class="container">
-			右键点击显示自定义菜单
+			右键点击显示自定义菜单    &nbsp;&nbsp;左键点击取消
 		</div>
 		<div class="menu">
 			<ul>
@@ -78,7 +79,7 @@
 				var mouse = getMousePosition();
 				menu.style.left = mouse.x+"px";
 				menu.style.top = mouse.y+"px";
-				menu.style.display = "";
+				menu.style.display = "block";
 			}
 			
 			obj.onclick = function(){
