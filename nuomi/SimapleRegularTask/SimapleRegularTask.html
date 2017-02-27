@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>正则表达式入门</title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			
+			.container{
+				width: 800px;
+				margin: 100px auto;
+			}
+			
+			body{
+				font-family: "comic sans ms";
+				font-size: 16px;
+			}
+			
+			
+			
+			input[type="text"]{
+				height: 25px;
+				outline: none;
+				border:1px solid #ccc
+				line-height: 30px;
+			}
+			
+			input[type="button"]{
+				margin: 20px auto;
+				height: 30px;
+				width: 60px;
+				color: #fff;
+				border: none;
+				background: dodgerblue;
+				border-radius: 5px;
+				outline: none;
+				transition: background 3s;
+				-moz-transition:background 3s; /* Firefox 4 */
+				-webkit-transition:background 3s; /* Safari and Chrome */
+				-o-transition:background 3s; /* Opera */
+			}
+			
+			input[type="button"]:hover{
+				background: blue;
+				transition: background 3s;
+				-moz-transition:background 3s; /* Firefox 4 */
+				-webkit-transition:background 3s; /* Safari and Chrome */
+				-o-transition:background 3s; /* Opera */
+				
+			}
+			
+			.result{
+				margin-left: 10px;
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			
+			<label>To judge what you input whether the phone number. </label>
+			<br />
+			<input type="text" id="number"/>
+			<input type="button" value="match" name="button" />
+			<span class="result"></span>
+			<br /><br />
+			<label>To judge what you input whether existed adjacent and repeatable words.</label>
+			<br />
+			<input type="text" id="string" />
+			<input type="button" value="match" name="button"/>
+			<span class="result"></span>
+		</div>
+		
+		<script>
+//			正则掌握很差
+			var btn = document.getElementsByName("button");
+			btn[0].onclick = function(){
+				var pattNumber = /^[0-9]\d{10,10}$/g;
+				var numValue = document.getElementById("number").value;	
+				if(numValue.exec(pattNumber) != null){
+					document.getElementsByClassName("result")[0].innerHTML = numValue.exec(pattNumber)+"  is correct!";
+				}else{
+					document.getElementsByClassName("result")[0].innerHTML = "sorry,what you input is wrong!";
+				}
+			}
+			
+			
+			btn[1].onclick = function(){
+				var pattString = /\b([A-z]+(?:[A-z]))\s+\1\b/g;
+				var strValue = document.getElementById("string").value;	
+				if(pattString.exec(strValue)){
+					document.getElementsByClassName("result")[1].innerHTML =strValue.match(pattString)+"  is correct!";
+				}else{
+					document.getElementsByClassName("result")[1].innerHTML = "sorry,what you input is wrong!";
+				}
+				
+			}
+			
+		</script>
+		
+	</body>
+</html>

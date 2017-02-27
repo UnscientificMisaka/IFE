@@ -23,34 +23,36 @@
 			});
 			
 			var light = new THREE.DirectionalLight(0x0000FF,1.0,0);
-			light.position.set(50,50,50);
+			light.position.set(0,0,0);
 			
 			var scene = new THREE.Scene();
 			
-			var camera = new THREE.OrthographicCamera(-15, 15, 4, -4, 1, 10);
-			camera.position.set(0, 0, 5);
+			var camera = new THREE.OrthographicCamera(-10, 10, 5, -5, 100, 10);
+			camera.position.set(0, 0, 50);
 			scene.add(camera);
-			camera.lookAt(new THREE.Vector3(0, 0, 0));
+			camera.lookAt(new THREE.Vector3(0,0,0));
 			
-			var wheel1 = new THREE.Mesh(new THREE.TorusGeometry(3, 1, 12, 18),
+			var wheel =[];
+			for(var i = 0;i<4;i++){
+				wheel[i] = new THREE.Mesh(new THREE.TorusGeometry(3, 1, 12, 18),
 			        new THREE.MeshBasicMaterial({
 			            color: "#fff",
 			            wireframe: true
 			        })
-			);
-			wheel1.position.set(10,200,10);
+				);
+				wheel[i].position.set(10*i,0,0);
+//				scene.add(whee[i]);s
+			}
 			
 			
-			var wheel2 = new THREE.Mesh(new THREE.TorusGeometry(3, 1, 12, 18),
-			        new THREE.MeshLambertMaterial({
-			            color: "#fff",
-			            wireframe: true
-			        })
-			);
+			wheel[0].position.set(-10,0,0);
+			wheel[1].position.set(10,0,0);
+			
+			
 			
 			scene.add(light);
-			scene.add(wheel1);
-			scene.add(wheel2);			
+//			scene.add(wheel1);
+//			scene.add(wheel2);			
 			
 			render.setClearColor("grey");
 			render.render(scene, camera);

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>CSS3饼状loading效果</title>
+		<style>
+			.circle{
+				/*margin:100px auto;*/
+				width: 80px;
+				height: 80px;
+				border-radius: 50%;
+				background: deeppink;
+				position: relative;
+				top: 20px;
+				left: 20px;
+				/*overflow: hidden;*/
+		
+			}
+			
+			.circle:after{
+				content: "";
+				width: 1px;
+				height: 120px;
+				position: relative;
+				top: -140px;
+				left: 40px;
+				display: block;
+				opacity: 0.5;
+				background: #000;
+				-webkit-animation: light 3s linear infinite;
+			}
+			
+			@keyframes light{
+				0%{
+					transform: rotate(0deg);
+					transform-origin:0% 50%;
+				}
+				100%{
+					transform: rotate(360deg);
+					transform-origin:0% 50%;
+				}
+			}
+			
+			.circle:before{
+				content: "";
+				display: block;
+				width: 120px;
+				height: 120px;
+				position: relative;
+				top: -21px;
+				left: -22px;
+				border: 1px solid deeppink;
+				border-radius: 50%;
+			}
+			
+			.wrapper{
+				margin: 100px auto;
+				width: 120px;
+				height: 120px;
+				border-radius: 50%;
+				/*border: 1px solid #000;*/
+				/*display: block;*/
+				
+				/*overflow: hidden;*/
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="circle"></div>
+		</div>
+		
+	</body>
+</html>
