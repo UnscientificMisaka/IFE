@@ -89,7 +89,7 @@
 			
 			
 			btn[1].onclick = function(){
-				var pattString = /\b([A-z]+(?:[A-z]))\s+\1\b/g;
+				var pattString = /\b([A-z]+)\s+\1\b/g;
 				var strValue = document.getElementById("string").value;	
 				if(pattString.exec(strValue)){
 					document.getElementsByClassName("result")[1].innerHTML =strValue.match(pattString)+"  is correct!";

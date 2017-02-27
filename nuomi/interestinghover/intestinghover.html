@@ -36,10 +36,11 @@
 		}
 
 		img:hover + p:before{
-			animation: changeHeight 3s linear  ;
-			-moz-animation: changeHeight 3s linear  ;	/* Firefox */
-			-webkit-animation: changeHeight 3s linear  ;	/* Safari 和 Chrome */
-			-o-animation: changeHeight 3s linear  ;
+			-webkit-transform: scale3d(1, 1, 1);
+		}
+		
+		img:hover + p:after{
+			-webkit-transform: scale3d(1, 1, 1);
 		}
 		
 		.show{
@@ -81,10 +82,8 @@
 			position: absolute;
 			top: 0;
 			left: 0;
-			animation: changeWidth 9s linear  ;
-			-moz-animation: changeWidth 9s linear  ;	/* Firefox */
-			-webkit-animation: changeWidth 9s linear  ;	/* Safari 和 Chrome */
-			-o-animation: changeWidth 9s linear  ;
+			-webkit-transition: -webkit-transform 1s linear .5s;
+			-webkit-transform: scale3d(0, 1, 1);
 		}
 		
 		p:before{
@@ -99,10 +98,8 @@
 			position: absolute;
 			top: 0;
 			left: 0;
-			animation: changeHeight 9s linear  ;
-			-moz-animation: changeHeight 9s linear  ;	/* Firefox */
-			-webkit-animation: changeHeight 9s linear  ;	/* Safari 和 Chrome */
-			-o-animation: changeHeight 9s linear  ;
+			-webkit-transition: -webkit-transform 1s linear .5s;
+			-webkit-transform: scale3d(1, 0, 1);
 		}
 		
 		
@@ -118,33 +115,11 @@
 			}
 			
 			100%{
-				background-position: -100% 0;
+				background-position: -200% 0;
 			}
 		}
 
-			@keyframes changeWidth{
-			0%{
-				width: 0%;
 
-			}
-			
-			50%{
-				width: 100%;
-
-			}
-		}
-		
-		@keyframes changeHeight{
-			0%{
-				height: 0%;
-
-			}
-			
-			100%{
-				height: 100%;
-				/*opacity: 0;*/
-			}
-		}
 
 		
 	</style>
