@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		
+		body{
+			font-family: "微软雅黑";
+		}
+		
+		.text{
+			width: 50%;
+			height: auto;
+			/*background: yellow;*/
+			display: inline-block;
+		}
+		
+		#text{
+			width: 100%;
+			height: 100%;
+			outline: none;
+			font-size: 20px;
+			line-height: 20px;
+			border:none;
+			/*border-radius: 4px;*/
+			color: #fff;
+			background: #202020;
+		}
+		
+		.show{
+			width: 48%;
+			height: 100%;
+			margin-left: 10px;
+			float: right;
+			color: #000;
+			padding-top: 10px;
+		}
+		
+
+		
+		.quote{
+			background: #CCCCCC;
+			color: #fff;
+		}
+	</style>
+	<body>
+		<div class="text" id="wrapper-text">
+			<textarea id="text">
+			</textarea>
+		</div>
+		
+		<div class="show" id="show"></div>
+		
+		<script>
+			var txt = document.getElementById("text");
+			var show = document.getElementById("show")
+			var wrapper = document.getElementById("wrapper-text");
+			var str = txt.value;
+			var line = [];
+			var result = [];
+			
+			window.onload = function(){
+				wrapper.style.height = window.innerHeight + "px";
+				show.style.height = window.innerHeight + "px";
+			}
+			
+			window.onresize = function(){
+				console.log(window.innerHeight);
+				wrapper.style.height = window.innerHeight + "px";
+				show.style.height = window.innerHeight + "px";
+			}
+			
+			console.log(document.body.clientHeight);
+//			正则表达式集合
+			var patt = {
+				"delSpace":/(^\s*)|(\s*$)/g,
+				"renderLine":/[\u4e00-\u9fa5]+|\w+[\s\S]+/g,
+				"getFirst":/^\W+\s+/g
+			}
+			
+		
+			
+			txt.onkeypress = judge;
+			
+//			txt.onkeydown = function(event){
+//				var e = event||window.event;				
+//				if(e&e.keyCode == 9){
+//					alert("1")
+//
+//				}
+//			}
+//			
+			
+			
+//			将每一行存进数组
+			function splitIntoArray(str){
+				var obj = txt.value.split("\n");
+				for(var i in obj){
+					line[i] = obj[i];
+				}	
+				return line;
+			}
+			
+//			判断首字符并在右侧渲染
+			function judge(){
+				clear();
+				splitIntoArray(str);
+
+				for(var i = 0;i<line.length;i++){
+					result[i] = line[i].match(patt.getFirst);
+				}
+				
+				for(var i = 0;i<result.length;i++){
+						console.log("正则去空格后首字符为"+result[i]);
+						console.log("第"+i+"行的值为："+line[i]);
+						console.log("首字符转字符串后的值为："+String(result[i]).replace(patt.delSpace,""))
+						var character = String(result[i]).replace(patt.delSpace,"");
+						if(character == "#"){
+							show.innerHTML += "<h1>"+String(line[i]).match(patt.renderLine)+"</h1>";
+						}else if(character == "##"){
+							show.innerHTML += "<h2>"+String(line[i]).match(patt.renderLine)+"</h2>";
+						}else if(character == "###"){
+							show.innerHTML += "<h3>"+String(line[i]).match(patt.renderLine)+"</h3>";
+						}else if(character == "####"){
+							show.innerHTML += "<h4>"+String(line[i]).match(patt.renderLine)+"</h4>";
+						}else if(character == "#####"){
+							show.innerHTML += "<h5>"+String(line[i]).match(patt.renderLine)+"</h5>";
+						}else if(character == "+"||character =="-"||character =="*"){
+							show.innerHTML += "<ul><li>"+String(line[i]).match(patt.renderLine)+"</li></ul>";
+						}else if(character == ">"){
+							if(result[i+1] == null&&line[i+2]!=null){
+								result[i+1] = ">";
+							}
+							if(line[i+1] == null&&line[i+2] == null){
+								result[i+1] = null;
+								result[i+2] = null;				
+							}
+							if(String(line[i]).match(patt.renderLine) == null){
+								show.innerHTML +="<div class='quote'></div>";
+							}else{
+								show.innerHTML +="<div class='quote'>"+String(line[i]).match(patt.renderLine)+"</div>";	
+							}
+						}else if(character == ""){
+							
+						}
+						else if(result[i] == null){
+							show.innerHTML += "<p>"+line[i]+"</p>";
+						}
+						else{
+							console.log("第"+i+"行的值首字符为空");
+						}
+				}
+			}
+			
+			function clear(){
+				show.innerHTML = "";
+			}
+			
+		
+			
+			
+			
+		</script>
+	</body>
+</html>
