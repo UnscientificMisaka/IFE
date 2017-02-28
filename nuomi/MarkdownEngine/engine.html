@@ -11,13 +11,12 @@
 		}
 		
 		body{
-			font-family: "微软雅黑";
+			font-family: "微软雅黑" ;
 		}
 		
 		.text{
 			width: 50%;
 			height: auto;
-			/*background: yellow;*/
 			display: inline-block;
 		}
 		
@@ -26,9 +25,9 @@
 			height: 100%;
 			outline: none;
 			font-size: 20px;
+			font-family: "微软雅黑";
 			line-height: 20px;
 			border:none;
-			/*border-radius: 4px;*/
 			color: #fff;
 			background: #202020;
 		}
@@ -39,19 +38,54 @@
 			margin-left: 10px;
 			float: right;
 			color: #000;
-			padding-top: 10px;
+			padding-top: 15px;
 		}
 		
-
 		
 		.quote{
-			background: #CCCCCC;
-			color: #fff;
+			padding: 0 1em;
+   			color: #777;
+   			border-left: 0.25em solid #ddd;
+		}
+		
+		.code{
+		    padding: 16px;
+		    overflow: auto;
+		    font-size: 85%;
+		    line-height: 1.45;
+		    background-color: #DCDCDC;
+		    border-radius: 3px;
+		}
+		
+		hr{
+			height: 0.25em;
+		    padding: 0;
+		    margin: 24px 0;
+		    background-color: #e7e7e7;
+		    border: 0;
 		}
 	</style>
 	<body>
 		<div class="text" id="wrapper-text">
 			<textarea id="text">
+				# 一级标题
+## 二级标题
+### 三级标题
+#### sdfa
+##### five
+
+***
+
+我是可爱的分割线
+
+> 我是可爱的引用
+
+
+
+
+下面是代码块	
+
+``` function(){console.log("不支持换行自动缩进")}	
 			</textarea>
 		</div>
 		
@@ -68,6 +102,7 @@
 			window.onload = function(){
 				wrapper.style.height = window.innerHeight + "px";
 				show.style.height = window.innerHeight + "px";
+				judge();
 			}
 			
 			window.onresize = function(){
@@ -81,21 +116,11 @@
 			var patt = {
 				"delSpace":/(^\s*)|(\s*$)/g,
 				"renderLine":/[\u4e00-\u9fa5]+|\w+[\s\S]+/g,
-				"getFirst":/^\W+\s+/g
+				"getFirst":/^\W+\s+/g,
+				"getImage":/^((ht|f)tps?):\/\/([\w\-]+(\.[\w\-]+)*\/)*[\w\-]+(\.[\w\-]+)*\/?(\?([\w\-\.,@?^=%&:\/~\+#]*)+)?/g
 			}
 			
-		
-			
-			txt.onkeypress = judge;
-			
-//			txt.onkeydown = function(event){
-//				var e = event||window.event;				
-//				if(e&e.keyCode == 9){
-//					alert("1")
-//
-//				}
-//			}
-//			
+			txt.onkeydown = judge;
 			
 			
 //			将每一行存进数组
@@ -117,9 +142,9 @@
 				}
 				
 				for(var i = 0;i<result.length;i++){
-						console.log("正则去空格后首字符为"+result[i]);
-						console.log("第"+i+"行的值为："+line[i]);
-						console.log("首字符转字符串后的值为："+String(result[i]).replace(patt.delSpace,""))
+//						console.log("正则去空格后首字符为"+result[i]);
+//						console.log("第"+i+"行的值为："+line[i]);
+//						console.log("首字符转字符串后的值为："+String(result[i]).replace(patt.delSpace,""))
 						var character = String(result[i]).replace(patt.delSpace,"");
 						if(character == "#"){
 							show.innerHTML += "<h1>"+String(line[i]).match(patt.renderLine)+"</h1>";
@@ -146,11 +171,28 @@
 							}else{
 								show.innerHTML +="<div class='quote'>"+String(line[i]).match(patt.renderLine)+"</div>";	
 							}
-						}else if(character == ""){
-							
-						}
-						else if(result[i] == null){
+						}else if(character == "```"){
+							if(result[i+1] == null&&line[i+2]!=null){
+								result[i+1] = "```";
+							}
+							if(line[i+1] == null&&line[i+2] == null){
+								result[i+1] = null;
+								result[i+2] = null;				
+							}
+							if(String(line[i]).match(patt.renderLine) == null){
+								show.innerHTML +="<div class='code'></div>";
+							}else{
+								show.innerHTML +="<div class='code'>"+String(line[i]).match(patt.renderLine)+"</div>";	
+							}
+						}else if(line[i] == "***"){
+							show.innerHTML += "<hr>";
+						}else if(String(line[i]).match(patt.renderLine) == null){
+							show.innerHTML +="<br>";	
+						}else if(result[i] == null){
 							show.innerHTML += "<p>"+line[i]+"</p>";
+						}else if(line[i].match(patt.getImage)){
+							alert(line[i].match(patt.getImage))
+							show.innerHTML +="<img src='"+ line[i].match(patt.getImage) +"'/>";	
 						}
 						else{
 							console.log("error");
