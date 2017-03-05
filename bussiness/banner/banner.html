@@ -112,7 +112,7 @@
 				}
 			window.onresize = function(){
 				container.style.width = window.innerWidth + "px";
-				console.log(container.style.width)
+//				console.log(container.style.width)
 				for(var i = 0;i<img.length;i++){
 					img[i].style.width = window.innerWidth + "px";
 				}
@@ -136,7 +136,7 @@
 		function moveL(){	
 			index++;
 			show.style.left = -(index * parseInt(img[0].style.width)) + "px";
-			console.log(-index);
+//			console.log(-index);
 			if(index == (img.length-1)){
 				index = -1;
 			}
