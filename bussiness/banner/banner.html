@@ -79,7 +79,7 @@
 	<body>
 		<div class="container">
 				<ul class="show" style="left: 0px;">
-					<li><a href=""><img src="1.jpg"></a></li>
+					<li><a honclick="alert('test')"><img src="1.jpg"></a></li>
 					<li><a onclick="alert('test')"><img src="2.jpg"></a></li>
 					<li><a><img src="3.jpg"></a></li>
 					<li><a><img src="4.jpg"></a></li>
@@ -167,7 +167,7 @@
 			for(var i = 0;i<img.length;i++){
 //				img[i].onmouseover = auto;
 //				img[i].onmouseout = clear;
-				img[i].ontouchstart = auto;
+				img[i].onclick = auto;
 				img[i].ontouchend = clear;	
 			}
 			next.onclick = animate;
