@@ -87,8 +87,8 @@
 				<ul id="dot">
 		
 				</ul>
-			<button id="prev"></button>
-			<button id="next"></button>
+			<!--<button id="prev"></button>
+			<button id="next"></button>-->
 		</div>
 	</body>
 	<script>
@@ -162,15 +162,19 @@
 			
 		}
 			
+		function change(){
+			clear();
+			animate();
+		}
 
 		function addEvent(){
 			for(var i = 0;i<img.length;i++){
 //				img[i].onmouseover = auto;
-//				img[i].onmouseout = clear;
-				img[i].ontouchmove = auto;
-				img[i].ontouchend = clear;	
+				img[i].ontouchstart = auto;
+				img[i].ontouchmove = change;
+				img[i].ontouchcancel = clear;	
 			}
-			next.onclick = animate;
+//			next.onclick = animate;
 			
 		}
 		
