@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	</head>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		
+		a{
+			text-decoration: none;
+		}
+		
+		li{
+			list-style: none;
+		}
+		
+		img{
+			width: 400px;
+			height: 250px;
+		}
+	
+		.container{
+			width: 400px;
+			height: 250px;
+			/*overflow: hidden;*/
+			position: absolute;
+		}
+		
+		.show{
+			position: relative;
+			width: 10000px;
+
+		
+		}
+		
+		.show li{
+				float: left;
+		}
+		
+		#dot{
+			width: 100%;
+			position: relative;
+			display: inline-block;
+			text-align: center;
+			bottom: 30px;
+			z-index: 999;
+			
+		}
+		
+		#dot li{
+			width: 10px;
+			height: 10px;
+			margin: 0 2px;
+			display: inline-block;
+			border-radius: 50%;
+			background: #fff;
+			border: 1px solid #CCCCCC;
+		
+		}
+		
+		#dot li:last-child{
+			display: none;
+		}
+		
+		
+		button{
+			z-index: 999;
+			width: 100px;
+			height: 50px;
+		}
+		
+		
+	</style>
+	<body>
+		<div class="container">
+				<ul class="show" style="left: 0px;">
+					<li><a href="about:blank"><img src="1.jpg"></a></li>
+					<li><a onclick="alert('test')"><img src="2.jpg"></a></li>
+					<li><a><img src="3.jpg"></a></li>
+					<li><a><img src="4.jpg"></a></li>
+				</ul>
+				<ul id="dot">
+		
+				</ul>
+			<button id="prev"></button>
+			<button id="next"></button>
+		</div>
+	</body>
+	<script>
+		var show = document.getElementsByClassName("show")[0];
+		var img = document.getElementsByTagName("img");
+		var container = document.getElementsByClassName("container")[0];
+		var dot = document.getElementById("dot");
+		var next = document.getElementById("next");
+		var dotLi = document.getElementsByClassName("dotLi");
+		
+//		自适应屏幕大小
+		function selfAdaptation(){
+			if(img.length == 0){
+				container.style.display = "none";
+			}
+			show.innerHTML += "<li><a><img src='1.jpg'></a></li>"
+			container.style.width = window.innerWidth + "px";
+			for(var i = 0;i<img.length;i++){
+					img[i].style.width = window.innerWidth + "px";
+					dot.innerHTML += "<li class='dotLi'><a></a></li>";
+				}
+			window.onresize = function(){
+				container.style.width = window.innerWidth + "px";
+				console.log(container.style.width)
+				for(var i = 0;i<img.length;i++){
+					img[i].style.width = window.innerWidth + "px";
+				}
+			}
+		}
+		
+		
+		
+		var t;
+		function auto(){
+			t = setInterval(animate,1000);
+		}
+		
+	
+		function clear(){
+			clearInterval(t);
+		}
+	
+		var index = 1;
+		
+		function moveL(){	
+			index++;
+			show.style.left = -(index * parseInt(img[0].style.width)) + "px";
+			console.log(-index);
+			if(index == (img.length-1)){
+				index = -1;
+			}
+		}
+		
+		function animate(){
+			var offset = parseInt(img[0].style.width)/10;
+//			console.log("show.style.left:"+parseInt(show.style.left))
+			if(parseInt(show.style.left) > -(index * parseInt(img[0].style.width) - offset)){
+				show.style.left = parseInt(show.style.left) - offset + "px"
+				setTimeout(animate,30);	
+			}else{
+				show.style.left = -(index * parseInt(img[0].style.width)) + "px";
+				dotLi[index-1].style.background = "#fff"
+				dotLi[index].style.background = "#ccc";
+				
+				index++;
+				if(index == 5){
+					dotLi[0].style.background = "#ccc";
+					index = 1;
+					show.style.left = 0;
+				}
+			}
+			
+		}
+			
+
+		function addEvent(){
+			for(var i = 0;i<img.length;i++){
+				img[i].onmouseover = auto;
+				img[i].onmouseout = clear;
+				img[i].ontouchmove = auto;
+				img[i].ontouchend = clear;	
+			}
+			next.onclick = animate;
+			
+		}
+		
+		function init(){
+			selfAdaptation();
+			dotLi[0].style.background = "red";
+			addEvent();
+		}
+		
+		init();
+	
+	</script>
+</html>
