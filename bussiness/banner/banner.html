@@ -128,7 +128,7 @@
 		
 	
 		function clear(){
-			event.preventDefault();
+			window.event.preventDefault();
 			clearInterval(t);
 		}
 	
@@ -137,7 +137,6 @@
 		function moveL(){	
 			index++;
 			show.style.left = -(index * parseInt(img[0].style.width)) + "px";
-//			console.log(-index);
 			if(index == (img.length-1)){
 				index = -1;
 			}
