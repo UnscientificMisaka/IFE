@@ -79,7 +79,7 @@
 	<body>
 		<div class="container">
 				<ul class="show" style="left: 0px;">
-					<li><a href="about:blank"><img src="1.jpg"></a></li>
+					<li><a href=""><img src="1.jpg"></a></li>
 					<li><a onclick="alert('test')"><img src="2.jpg"></a></li>
 					<li><a><img src="3.jpg"></a></li>
 					<li><a><img src="4.jpg"></a></li>
@@ -152,7 +152,6 @@
 				show.style.left = -(index * parseInt(img[0].style.width)) + "px";
 				dotLi[index-1].style.background = "#fff"
 				dotLi[index].style.background = "#ccc";
-				
 				index++;
 				if(index == 5){
 					dotLi[0].style.background = "#ccc";
@@ -166,9 +165,9 @@
 
 		function addEvent(){
 			for(var i = 0;i<img.length;i++){
-				img[i].onmouseover = auto;
-				img[i].onmouseout = clear;
-				img[i].ontouchmove = auto;
+//				img[i].onmouseover = auto;
+//				img[i].onmouseout = clear;
+				img[i].ontouchstart = auto;
 				img[i].ontouchend = clear;	
 			}
 			next.onclick = animate;
@@ -177,7 +176,7 @@
 		
 		function init(){
 			selfAdaptation();
-			dotLi[0].style.background = "red";
+			dotLi[0].style.background = "#CCC";
 			addEvent();
 		}
 		
