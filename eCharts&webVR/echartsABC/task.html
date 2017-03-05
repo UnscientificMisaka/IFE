@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>折线图柱状图</title>
+		<script src="../echarts.js"></script>
+	</head>
+	<style>
+		#main{
+			margin: 0 auto;
+			width: 1000px;
+			height: 500px;
+		}
+	</style>
+	<body>
+		<div id="main"></div>
+		
+		<script>
+			var chart = echarts.init(document.getElementById("main"));
+			var option = {
+				title : {
+					text : "初识Echarts"
+				},
+				tooltip : {},
+				legend:{
+					data : ["number"]
+				},
+				xAxis : {
+					data : ["大一","大二","大三","大四"]
+				},
+				yAxis : {},
+				series : [
+					{
+						name : "number",
+						type : "line",
+						data : [1000,2000,2500,1500]
+					},
+					{
+						name : "number",
+						type : "bar",
+						data : [1000,2000,2500,1500]
+					}
+				]
+				
+			};
+			
+			chart.setOption(option);
+		</script>
+	</body>
+</html>
