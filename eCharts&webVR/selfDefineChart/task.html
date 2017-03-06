@@ -21,7 +21,8 @@
 			var option = {
 				title : {
 					text : "萌萌王选票萌萌王选票萌萌王选票萌萌王选票萌萌王选票",
-					subtext : "纯属虚构纯属虚构纯属虚构纯属虚构纯属虚构纯属虚构"
+					subtext : "纯属虚构纯属虚构纯属虚构纯属虚构纯属虚构纯属虚构",
+				
 				},
 				legend : {
 					show : true,
@@ -57,10 +58,10 @@
 				grid : {
 					top : "20%",
 				},
-				xAxis : {
+				xAxis : [{
 					gridIndex : 0,
 					position : "bottom",
-					data : ["御坂美琴","千反田爱瑠","蕾姆","康娜"],
+					data:['2006','07','08','09'],
 					name : "选手",
 					nameTextStyle : {
 						color : "red",
@@ -70,28 +71,29 @@
 					},
 					axisLine : {
 						show : true,
+						onZero : false,
 						lineStyle : {
-							color : "red",
+//							color : "red",
 							width : 3,
 						},
 					},
-					axisTick : {
-						show : false,
+						axisTick : {
+						show : true,
+						inside : true,
 					},
-					axisLabel : {
-					
-						formatter : function (value, index) {
-						    // 格式化成月/日，只在第一个刻度显示年份
-						    var date = new Date();
-						    var texts = [(date.getMonth() + 1), date.getDate()];
-						    if (index === 0) {
-						        texts.unshift(date.getYear());
-						    }
-						    return texts.join('/');
-						},
-					}
-					
+			
 				},
+				{
+		            axisLine: {
+		                lineStyle: {
+		                    color: 'red',
+		                    width: 3
+		                }
+		            },
+		            z: 5
+		        }],
+				
+
 				yAxis : {
 					name : "指数",
 					nameTextStyle : {
