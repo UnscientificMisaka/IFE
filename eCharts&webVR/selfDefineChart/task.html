@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>实现自定义的统计图表</title>
+		<script src="../echarts.js"></script>
+	</head>
+	<style>
+		#main{
+			margin: 0 auto;
+			width: 1000px;
+			height: 500px;
+		}
+	</style>
+	<body>
+		<div id="main"></div>
+		
+		<script>
+			var chart = echarts.init(document.getElementById("main"));
+
+			var option = {
+				title : {
+					text : "萌萌王选票萌萌王选票萌萌王选票萌萌王选票萌萌王选票",
+					subtext : "纯属虚构纯属虚构纯属虚构纯属虚构纯属虚构纯属虚构"
+				},
+				legend : {
+					show : true,
+					zlevel : 2,
+				},
+				tooltip : {},
+				legend:{
+					data : [{
+						name : "人气",
+						icon : "roundRect",
+						textStyle :{
+							color : "#000"
+						}
+					},
+					{
+						name : "选票",
+						icon : "roundRect",
+						textStyle :{
+							color : "#000"
+						}
+					}],
+					
+					selected:{
+						"人气" : true,
+						"选票" : true
+					},
+					top : "10%",
+					left : "left",
+					
+					
+					align : "left",
+				},
+				grid : {
+					top : "20%",
+				},
+				xAxis : {
+					gridIndex : 0,
+					position : "bottom",
+					data : ["御坂美琴","千反田爱瑠","蕾姆","康娜"],
+					name : "选手",
+					nameTextStyle : {
+						color : "red",
+						fontStyle : "normal",
+						fontFamily : "微软雅黑",
+						fontSize : 16,
+					},
+					axisLine : {
+						show : true,
+						lineStyle : {
+							color : "red",
+							width : 3,
+						},
+					},
+					axisTick : {
+						show : false,
+					},
+					axisLabel : {
+					
+						formatter : function (value, index) {
+						    // 格式化成月/日，只在第一个刻度显示年份
+						    var date = new Date();
+						    var texts = [(date.getMonth() + 1), date.getDate()];
+						    if (index === 0) {
+						        texts.unshift(date.getYear());
+						    }
+						    return texts.join('/');
+						},
+					}
+					
+				},
+				yAxis : {
+					name : "指数",
+					nameTextStyle : {
+						color : "red",
+						fontStyle : "normal",
+						fontFamily : "微软雅黑",
+						fontSize : 16,
+					},
+					inverse: true,
+					axisLine : {
+						show : false,
+
+					},
+					splitLine : {
+						lineStyle : {
+							color : ['#fff'],
+							width : 3,
+							type : "solid"
+						}
+					},
+					axisLabel : {
+						show :true,
+					}
+					
+				},
+				series : [
+					{
+						name : "人气",
+						type : "bar",
+						data : [800,900,2500,1500],
+						color : ["#F80000"]
+					},
+					{
+						name : "选票",
+						type : "bar",
+						data : [1000,2000,2500,1500],
+						color :["#3366ff"]
+					}
+				],
+				backgroundColor: "#CCCCFF",
+				
+			};
+				
+			chart.setOption(option);
+
+		</script>
+	</body>
+</html>
