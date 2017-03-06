@@ -2,8 +2,53 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>散点图</title>
+		<style>
+		#main{
+			width: 1200px;
+			height: 400px;
+		}
+	</style>
+	<script src="../echarts.js"></script>
 	</head>
 	<body>
+		<div id="main"></div>
+		<script>
+			var chart = echarts.init(document.getElementById("main"));	
+//			var academy = ["机械","外国语","经管","计算机","土木","数理","艺术","教育","电气","延陵"];
+			var randomArray = [];
+			for(var i = 0;i<100000;i++){
+				randomArray.push(100000*Math.random());
+			}
+			var test = [];
+			for(var i = 0;i<100;i++){
+				test.push[i];
+			}
+			var option = {
+				title : {text : "各学院就业指标"},
+				tooltip : {},
+				legend : {
+					data : [{
+							name : "月收入(元)"
+						}],
+					right : "10%"
+				},
+				xAxis : {
+					data : test,
+				
+				},
+				yAxis : [{
+					name : "月收入(元)",
+				}],
+				series : [{
+					name : "月收入(元)",
+					type : "scatter",
+					data : randomArray,
+					symbolSize : 1,
+				}],
+				
+			};
+			chart.setOption(option);
+		</script>
 	</body>
 </html>

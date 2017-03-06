@@ -2,8 +2,72 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>折线图和柱状图</title>
 	</head>
+	<style>
+		#main{
+			width: 1200px;
+			height: 400px;
+		}
+	</style>
+	<script src="../echarts.js"></script>
 	<body>
+		<div id="main"></div>
+		<script>
+			var chart = echarts.init(document.getElementById("main"));	
+			var academy = ["机械","外国语","经管","计算机","土木","数理","艺术","教育","电气","延陵"];
+			var unemploymentRate = [96,94,96,91,93,91,90,89,87,93];
+			var salary = [3769,3769,3529,3768,3304,3653,3757,3727,3457,3602];
+			var professionalRate = [60,67,60,79,82,57,58,67,54,57];
+			var option = {
+				title : {text : "各学院就业指标"},
+				tooltip : {},
+				legend : {
+					data : [{
+						name : "非失业率(%)"
+						},{
+							name : "月收入(元)"
+						},{
+							name : "专业相关度(%)"
+						}],
+					right : "10%"
+				},
+				xAxis : {
+					data : academy,
+
+				},
+				yAxis : [{
+					name : "非失业率(%)",
+					min : 0,
+					max : 100,
+					
+				},{
+					name : "专业相关度(%)",
+					min : 0,
+					max : 100,
+				},{
+					name : "月收入(元)",
+					offset : 80,
+					min : 3000,
+					max : 4000,
+				}],
+				series : [{
+					name : "非失业率(%)",
+					type : "bar",
+					data : unemploymentRate,
+				},{
+					name : "专业相关度(%)",
+					type : "bar",
+					data : professionalRate,
+				},{
+					name : "月收入(元)",
+					type : "line",
+					data : salary,
+					yAxisIndex : 2,
+				}],
+				
+			};
+			chart.setOption(option);
+		</script>
 	</body>
 </html>

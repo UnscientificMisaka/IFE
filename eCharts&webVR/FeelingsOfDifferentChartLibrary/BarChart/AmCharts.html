@@ -2,8 +2,61 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>柱状图</title>
+		<script src="../amcharts/amcharts.js"></script>
+		<script src="../amcharts/serial.js"></script>
 	</head>
+	<style>
+		#main{
+			width: 1200px;
+			height: 400px;
+		}
+	</style>
 	<body>
+		<div id="main"></div>
+		<script>
+			var chartData = [ {
+			    "学院": "机械",
+			    "薪水": 3769
+			  }, {
+			    "学院": "外国语",
+			    "薪水": 3769
+			  }, {
+			    "学院": "经管",
+			    "薪水": 3529
+			  }, {
+			    "学院": "计算机",
+			    "薪水": 3768
+			  }, {
+			    "学院": "土木",
+			    "薪水": 3304
+			  }, {
+			    "学院": "数理",
+			    "薪水": 3653
+			  }, {
+			    "学院": "艺术",
+			    "薪水": 3757
+			  }, {
+			    "学院": "教育",
+			    "薪水": 3727
+			  }, {
+			    "学院": "电气",
+			    "薪水": 3457
+			  }, {
+			    "学院": "延陵",
+			    "薪水": 3602
+			  }];
+			
+			AmCharts.makeChart( "main", {
+			  "type": "serial",
+			  "dataProvider": chartData,
+			  "categoryField": "学院",
+			  "graphs": [ {
+			    "valueField": "薪水",
+			    "type": "column"
+			  } ]
+			} );
+			
+		</script>
 	</body>
 </html>

@@ -2,8 +2,43 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>饼状图</title>
 	</head>
+	<style>
+		#main{
+			width: 1200px;
+			height: 400px;
+		}
+	</style>
+	<script src="../echarts.js"></script>
 	<body>
+			<div id="main"></div>
+		<script>
+			var chart = echarts.init(document.getElementById("main"));	
+			
+			var option = {
+				title : {text : "各学院就业指标"},
+				tooltip : {},
+				series : [{
+					name : "月收入(元)",
+					type : "pie",
+					data : [
+						{value : 3769,name : "机械"},
+						{value : 3769,name : "外国语"},
+						{value : 3529,name : "经管"},
+						{value : 3768,name : "计算机"},
+						{value : 3304,name : "土木"},
+						{value : 3653,name : "数理"},
+						{value : 3757,name : "艺术"},
+						{value : 3727,name : "教育"},
+						{value : 3457,name : "电气"},
+						{value : 3602,name : "延陵"},
+					],
+					roseType: 'angle',
+				}],
+			};
+
+			chart.setOption(option);
+		</script>
 	</body>
 </html>
