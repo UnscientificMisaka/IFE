@@ -17,43 +17,101 @@
 		<script>
 			var chartData = [ {
 			    "学院": "机械",
-			    "薪水": 3769
+			    "薪水": 3769,
+			    "非失业率" : 96,
+			    "专业相关度" : 60
 			  }, {
 			    "学院": "外国语",
-			    "薪水": 3769
+			    "薪水": 3769,
+			    "非失业率" : 94,
+			     "专业相关度" : 67
 			  }, {
 			    "学院": "经管",
-			    "薪水": 3529
+			    "薪水": 3529,
+			    "非失业率" : 96,
+			     "专业相关度" : 60
 			  }, {
 			    "学院": "计算机",
-			    "薪水": 3768
+			    "薪水": 3768,
+			    "非失业率" : 91,
+			     "专业相关度" : 79
 			  }, {
 			    "学院": "土木",
-			    "薪水": 3304
+			    "薪水": 3304,
+			    "非失业率" : 93,
+			     "专业相关度" : 82
 			  }, {
 			    "学院": "数理",
-			    "薪水": 3653
+			    "薪水": 3653,
+			    "非失业率" : 91,
+			     "专业相关度" : 57
 			  }, {
 			    "学院": "艺术",
-			    "薪水": 3757
+			    "薪水": 3757,
+			    "非失业率" : 90,
+			     "专业相关度" : 58
 			  }, {
 			    "学院": "教育",
-			    "薪水": 3727
+			    "薪水": 3727,
+			    "非失业率" : 89,
+			     "专业相关度" : 67
 			  }, {
 			    "学院": "电气",
-			    "薪水": 3457
+			    "薪水": 3457,
+			    "非失业率" : 87,
+			     "专业相关度" : 54
 			  }, {
 			    "学院": "延陵",
-			    "薪水": 3602
+			    "薪水": 3602,
+			    "非失业率" : 93,
+			     "专业相关度" : 57
 			  }];
 			
 			AmCharts.makeChart( "main", {
 			  "type": "serial",
 			  "dataProvider": chartData,
 			  "categoryField": "学院",
+			  "legend": {
+			        "useGraphSettings": true,
+			        "valueAlign": "left",
+			    },
+			  "valueAxes": [{
+		        "id": "salaryAxis",
+		        "axisAlpha": 0,
+		        "gridAlpha": 0,
+		        "position": "left",
+		        "title": "salary"
+  			 },{
+  			 	"id": "UnemploymentRateAxis",
+		        "axisAlpha": 0,
+		        "gridAlpha": 0,
+		        "position": "right",
+		        "title": "UnemploymentRate"
+  			 },{
+  			 	"id": "professionalRateAxis",
+		        "axisAlpha": 0,
+		        "gridAlpha": 0,
+		        "position": "20px",
+		        "title": "professionalRate"
+  			 }],
 			  "graphs": [ {
+			  	"title" : "薪水",
 			    "valueField": "薪水",
-			    "type": "line"
+			    "type": "line",
+			    "bullet" : "round",
+			    "valueAxis": "salaryAxis"
+			  },{
+			  	"title" : "非失业率",
+			  	"valueField": "非失业率",
+			    "type": "line",
+			    "bullet" : "square",
+			    "valueAxis": "UnemploymentRateAxis"
+			  },{
+			  	"title" : "专业相关度",
+			  	"valueField": "专业相关度",
+			    "type": "line",
+			    "bullet" : "diamond",
+			    "valueAxis": "UnemploymentRateAxis"
 			  } ]
 			} );
 			
