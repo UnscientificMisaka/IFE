@@ -19,12 +19,15 @@
 			    "学院": "机械",
 			    "薪水": 3769,
 			    "非失业率" : 96,
-			    "专业相关度" : 60
+			    "专业相关度" : 60,
+			     "salaryBullet": "https://www.amcharts.com/lib/3/images/star.png?x",
+			     "unemploymentBullet": "https://www.amcharts.com/lib/3/images/star.png?x",
 			  }, {
 			    "学院": "外国语",
 			    "薪水": 3769,
 			    "非失业率" : 94,
-			     "专业相关度" : 67
+			     "专业相关度" : 67,
+			     "salaryBullet": "https://www.amcharts.com/lib/3/images/star.png?x",
 			  }, {
 			    "学院": "经管",
 			    "薪水": 3529,
@@ -39,7 +42,8 @@
 			    "学院": "土木",
 			    "薪水": 3304,
 			    "非失业率" : 93,
-			     "专业相关度" : 82
+			     "专业相关度" : 82,
+			      "customBullet": "https://www.amcharts.com/lib/3/images/star.png?x",
 			  }, {
 			    "学院": "数理",
 			    "薪水": 3653,
@@ -59,12 +63,14 @@
 			    "学院": "电气",
 			    "薪水": 3457,
 			    "非失业率" : 87,
-			     "专业相关度" : 54
+			     "专业相关度" : 54,
+	
 			  }, {
 			    "学院": "延陵",
 			    "薪水": 3602,
 			    "非失业率" : 93,
-			     "专业相关度" : 57
+			     "专业相关度" : 57,
+			      
 			  }];
 			
 			AmCharts.makeChart( "main", {
@@ -74,7 +80,8 @@
 			  "legend": {
 			        "useGraphSettings": true,
 			        "valueAlign": "left",
-			    },
+			  },
+			 
 			  "valueAxes": [{
 		        "id": "salaryAxis",
 		        "axisAlpha": 0,
@@ -99,18 +106,24 @@
 			    "valueField": "薪水",
 			    "type": "line",
 			    "bullet" : "round",
+			    "bulletSize": 14,
+			    "customBulletField": "salaryBullet",
 			    "valueAxis": "salaryAxis"
 			  },{
 			  	"title" : "非失业率",
 			  	"valueField": "非失业率",
 			    "type": "line",
 			    "bullet" : "square",
+			    "bulletSize": 14,
+			    "customBulletField": "unemploymentBullet",
 			    "valueAxis": "UnemploymentRateAxis"
 			  },{
 			  	"title" : "专业相关度",
 			  	"valueField": "专业相关度",
 			    "type": "line",
 			    "bullet" : "diamond",
+			    "bulletSize": 14,
+			    "customBulletField": "customBullet",
 			    "valueAxis": "UnemploymentRateAxis"
 			  } ]
 			} );

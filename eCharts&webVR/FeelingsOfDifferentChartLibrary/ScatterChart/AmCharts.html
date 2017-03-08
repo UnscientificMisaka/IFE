@@ -3,8 +3,9 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>散点图</title>
-		<script src="../amcharts/amcharts.js"></script>
-		<script src="../amcharts/serial.js"></script>
+		<script src="../lib/amcharts/amcharts.js"></script>
+		<script src="../lib/amcharts/serial.js"></script>
+		<script src="../lib/amcharts/xy.js"></script>
 	</head>
 	<style>
 		#main{
@@ -16,45 +17,36 @@
 		<div id="main"></div>
 		<script>
 			var chartData = [];
-			var obj = {
-					"academy" : "",
-					"salary" : ""
-			}
-			var academy = [];
-			var salary = [];
 			
-			for(var i = 0;i<10;i++){
-				academy.push(i);
-				salary.push(10*Math.random());
-			}
 			
-			for(var i = 0;i<10;i++){
-				obj.academy = academy[i];
-				obj.salary = salary[i];
-				console.log(chartData.push(obj))
+			for(var i = 0;i<100000;i++){
+				var obj = {
+					"academy" : 100000*Math.random(),
+					"salary" : 100000*Math.random(),
+					"value" : 1
+				};
+				chartData.push(obj);
 			}
+			console.log(chartData);
+			
 			
 			
 			AmCharts.makeChart( "main", {
-			  "type": "serial",
+			  "type": "xy",
 			  "dataProvider": chartData,
 			  "categoryField": "academy",
 			  "legend": {
 			        "useGraphSettings": true,
 			        "valueAlign": "left",
-			    },
-			    "valueAxes": [{
-		        "id": "salaryAxis",
-		        "axisAlpha": 0,
-		        "gridAlpha": 0,
-		        "position": "left",
-		        "title": "salary"
-  			 }],
+			   },
 			  "graphs": [ {
 			  	"title" : "salary",
-			    "valueField": "salary",
-			    "type": "column",
-			    "valueAxis": "salaryAxis"
+				"lineAlpha": 0,
+			  	"bullet": "circle",
+			  	"maxBulletSize":1,
+			    "valueField": "value",
+			    "xField": "academy",
+        		"yField": "salary",
 			  }]
 			} );
 			

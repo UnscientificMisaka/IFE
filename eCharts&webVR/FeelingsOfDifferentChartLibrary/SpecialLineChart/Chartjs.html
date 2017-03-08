@@ -2,8 +2,82 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>特殊的折线图(最高点样式)</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
 	</head>
+	<style>
+		#main{
+			height: 400px;
+			width: 1200px;
+		}
+	</style>
 	<body>
+		<h1>API文档中没有找到最高点配置项:(</h1>
+		<canvas id="main"></canvas>
+		<script>
+			
+			var academy = ["机械","外国语","经管","计算机","土木","数理","艺术","教育","电气","延陵"];
+			var unemploymentRate = [96,94,96,91,93,91,90,89,87,93];
+			var salary = [3769,3769,3529,3768,3304,3653,3757,3727,3457,3602];
+			var professionalRate = [60,67,60,79,82,57,58,67,54,57];
+			
+			var data = {
+				labels : academy,
+				datasets : [
+					{
+						label : "salary",
+						data : salary,
+						yAxisID : "salary",
+						fill : false,
+						cubicInterpolationMode:"monotone",
+					},{
+						label : "unemploymentRate",
+						data : unemploymentRate,
+						yAxisID : "unemploymentRate",
+						fill : false,
+						cubicInterpolationMode:"monotone",
+					},{
+						label : "professionalRate",
+						data : professionalRate,
+						yAxisID : "unemploymentRate",
+						fill : false,
+						cubicInterpolationMode:"monotone",
+					}
+				],
+			};
+			
+			var ctx = document.getElementById("main").getContext("2d");
+			new Chart(ctx,{
+				type: 'line',
+                data: data,
+				  options: {
+                    responsive: true,
+                    legend: {
+                    	text : "test",
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Chart.js Bar Chart'
+                    },
+                    scales: {
+                    yAxes: [{
+                        type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                        display: true,
+                        position: "left",
+                        id: "salary",
+                    }, {
+                        type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                        display: true,
+                        position: "right",
+                        id: "unemploymentRate",
+                        gridLines: {
+                            drawOnChartArea: false, // only want the grid lines for one axis to show up
+                        },
+                    }],
+                }
+                }
+			});
+		</script>
 	</body>
 </html>

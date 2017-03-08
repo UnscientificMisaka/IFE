@@ -2,8 +2,48 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>饼状图</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
 	</head>
+	<style>
+		#main{
+			height: 400px;
+			width: 400px;
+		}
+	</style>
 	<body>
+		<canvas id="main"></canvas>
+		<script>
+			
+			var academy = ["机械","外国语","经管","计算机","土木","数理","艺术","教育","电气","延陵"];
+			var salary = [3769,3769,3529,3768,3304,3653,3757,3727,3457,3602];
+			
+			var data = {
+				labels : academy,
+				datasets : [
+					{
+						type :"pie",
+						label : "salary",
+						data : salary,
+						yAxisID : "salary",
+						fill : false,
+						cubicInterpolationMode:"monotone",
+					}
+				]
+			};
+			
+			var ctx = document.getElementById("main").getContext("2d");
+			new Chart(ctx,{
+				type: 'pie',
+                data: data,
+				  options: {
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Chart.js Pie Chart'
+                    },     
+               },
+			});
+		</script>
 	</body>
 </html>

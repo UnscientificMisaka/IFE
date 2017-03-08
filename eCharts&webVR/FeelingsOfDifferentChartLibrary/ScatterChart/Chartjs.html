@@ -2,8 +2,56 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>折线图</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
+
 	</head>
+	<style>
+		#main{
+			height: 400px;
+			width: 1200px;
+		}
+	</style>
 	<body>
+		<canvas id="main"></canvas>
+		<script>
+		var chartData = [];
+		for(var i = 0;i<10000;i++){
+			var obj = {
+				x : 100000*Math.random(),
+				y : 100000*Math.random(),
+			};
+			chartData.push(obj);
+		}
+	
+		var data = {
+			label : "test",
+			datasets : [
+				{
+					data : chartData,
+					fill : false,
+				}
+			],
+		};
+		
+		var ctx = document.getElementById("main").getContext("2d");
+		new Chart.Scatter(ctx,{
+			type: 'line',
+            data: data,
+			  options: {
+				type : "line",
+            	showLines:false,
+                responsive: true,
+                legend: {
+                	text : "test",
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Chart.js Bar Chart'
+                },
+           }
+		});
+		</script>
 	</body>
 </html>
