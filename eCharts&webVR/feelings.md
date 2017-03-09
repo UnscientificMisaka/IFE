@@ -19,6 +19,7 @@ Questions:
 #### Chart.js
 #### Chartist-js
 #### HighCharts
+1. 感觉比较反人类，type为bar的柱状图是横着的
 ***
 ### 饼状图
 #### Echarts
@@ -26,6 +27,7 @@ Questions:
 #### Chart.js
 #### Chartist-js
 #### HighCharts
+1. data格式必须值的名字是y
 ***
 ### 大数据量散点图
 #### Echarts
@@ -46,6 +48,7 @@ https://www.amcharts.com/demos/line-with-custom-bullets/
 1. 点与点之间一直有连线，仔细阅读文档发现需要设置type为line类型才能覆盖属性默认值
 #### Chartist-js
 #### HighCharts
+1. 也是手动设置最高点样式
 ***
 ### 同一图表内折线图和柱状图
 #### Echarts

@@ -2,8 +2,84 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>折线图和柱状图</title>
+		<script src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+		<script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
 	</head>
+	<style>
+		#main{
+			width: 1200px;
+			height: 400px;
+		}
+	</style>
 	<body>
+		<div id="main"></div>
+		<script>
+			$(function () {
+				var academy = ["机械","外国语","经管","计算机","土木","数理","艺术","教育","电气","延陵"];
+				var unemploymentRate = [96,94,96,91,93,91,90,89,87,93];
+				var salary = [3769,3769,3529,3768,3304,3653,3757,3727,3457,3602];
+				var professionalRate = [60,67,60,79,82,57,58,67,54,57];
+			    $('#main').highcharts({                  //图表展示容器，与 div 的 id 保持一致
+			        chart: {
+			            type: 'line'                           //指定图表的类型，默认是折线图（line）
+			        },
+			        title: {
+			            text: 'HighCharts'                 //指定图表标题
+			        },
+			        xAxis: {
+			            categories: academy   //指定x轴分组
+			        },
+			        yAxis: [{
+			            title: {
+			                text: 'salary',    
+			            },
+			            min : 3000,
+						max : 4000,
+			        },{
+			            title: {
+			                text: 'unemploymentRate',
+			            },
+			         	min : 0,
+						max : 100,
+						opposite : true,
+						id : 1
+			        },{
+			            title: {
+			                text: 'professionalRate',
+			            }
+			        },],
+			        series: [{
+			        	type : 'line',
+			            name: 'salary',                          
+			            data: salary                      
+			        }, {
+			        	type : 'line',
+			            name: 'unemploymentRate',
+			            data: unemploymentRate,
+			            yAxis : 1
+			        }, {
+			        	type : 'line',
+			            name: 'professionalRate',
+			            data: professionalRate,
+			            yAxis : 1
+			        },{
+			        	type : 'column',
+			            name: 'salary',                          
+			            data: salary                      
+			        }, {
+			        	type : 'column',
+			            name: 'unemploymentRate',
+			            data: unemploymentRate,
+			            yAxis : 1
+			        }, {
+			        	type : 'column',
+			            name: 'professionalRate',
+			            data: professionalRate,
+			            yAxis : 1
+			        }]
+			    });
+			});
+		</script>
 	</body>
 </html>

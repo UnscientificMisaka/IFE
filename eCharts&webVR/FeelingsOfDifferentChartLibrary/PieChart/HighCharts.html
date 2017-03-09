@@ -2,8 +2,44 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>饼状图</title>
+		<script src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+		<script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
 	</head>
+	<style>
+		#main{
+			width: 1200px;
+			height: 400px;
+		}
+	</style>
 	<body>
+		<div id="main"></div>
+		<script>
+			$(function () {
+			    $('#main').highcharts({                  //图表展示容器，与 div 的 id 保持一致
+			        chart: {
+			            type: 'pie'                           //指定图表的类型，默认是折线图（line）
+			        },
+			        title: {
+			            text: 'HighCharts'                 //指定图表标题
+			        },
+			        series: [{                                
+			            name: 'salary',                          
+			            data : [
+						{y : 3769,name : "机械"},
+						{y : 3769,name : "外国语"},
+						{y : 3529,name : "经管"},
+						{y : 3768,name : "计算机"},
+						{y : 3304,name : "土木"},
+						{y : 3653,name : "数理"},
+						{y : 3757,name : "艺术"},
+						{y : 3727,name : "教育"},
+						{y : 3457,name : "电气"},
+						{y : 3602,name : "延陵"},
+					]                      
+			        }]
+			    });
+			});
+		</script>
 	</body>
 </html>

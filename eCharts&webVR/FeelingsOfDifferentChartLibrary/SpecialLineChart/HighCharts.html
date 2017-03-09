@@ -2,8 +2,99 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>特殊的折线图(最高点样式特殊)</title>
+		<script src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+		<script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
 	</head>
+	<style>
+		#main{
+			width: 1200px;
+			height: 400px;
+		}
+	</style>
 	<body>
+		<div id="main"></div>
+		<script>
+			$(function () {
+				var academy = ["机械","外国语","经管","计算机","土木","数理","艺术","教育","电气","延陵"];
+				var unemploymentRate = [{
+	                y: 96,
+	                marker: {
+	                    symbol: "triangle",
+	                    fillColor : "red",
+	                }
+	            },94,{
+	                y: 96,
+	                marker: {
+	                    symbol: "triangle",
+	                    fillColor : "red",
+	                }
+           		 },91,93,91,90,89,87,93];
+				var salary = [{
+	                y: 3769,
+	                marker: {
+	                    symbol: "triangle",
+	                    fillColor : "red",
+	                }
+	            },{
+	                y: 3769,
+	                marker: {
+	                    symbol: "triangle",
+	                    fillColor : "red",
+	                }
+	            },3529,3768,3304,3653,3757,3727,3457,3602];
+				var professionalRate = [60,67,60,79,{
+	                y: 82,
+	                marker: {
+	                    symbol: "triangle",
+	                    fillColor : "red",
+	                }
+	            },57,58,67,54,57];
+			    $('#main').highcharts({                  //图表展示容器，与 div 的 id 保持一致
+			        chart: {
+			            type: 'line'                           //指定图表的类型，默认是折线图（line）
+			        },
+			        title: {
+			            text: 'HighCharts'                 //指定图表标题
+			        },
+			        xAxis: {
+			            categories: academy   //指定x轴分组
+			        },
+			        yAxis: [{
+			            title: {
+			                text: 'salary',    
+			            },
+			            min : 3000,
+						max : 4000,
+						
+			        },{
+			            title: {
+			                text: 'unemploymentRate',
+			            },
+			         	min : 0,
+						max : 100,
+						opposite : true,
+						id : 1
+			        },{
+			            title: {
+			                text: 'professionalRate',
+			            }
+			        },],
+			        series: [{                                
+			            name: 'salary',                          
+			            data: salary,
+			 
+			        }, {
+			            name: 'unemploymentRate',
+			            data: unemploymentRate,
+			            yAxis : 1
+			        }, {
+			            name: 'professionalRate',
+			            data: professionalRate,
+			            yAxis : 1
+			        }]
+			    });
+			});
+		</script>
 	</body>
 </html>

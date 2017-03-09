@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>无限滚动效果</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	</head>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		
+		#main{
+			width: 100%;
+		}
+		
+		li{
+			list-style: none;
+			height: 50px;
+			width: 100%;
+			border-bottom: 1px solid #DCDCDC;
+		}
+		
+		.title{
+			width: 100%;
+			height: 50px;
+			line-height: 50px;
+			background: #DCDCDC;
+			text-align: center;
+		}
+		
+		.load{
+			/*display: none;*/
+			width: 100px;
+			height: 100px;
+			margin: 0 auto;
+			position: relative;
+		}
+		
+		.load span{
+			display: inline-block;
+			height: 10px;
+			width: 30px;
+			border-radius: 5px;
+            /*border-bottom-left-radius: 5px;*/
+            background: #ccc;
+            position: absolute;
+            -webkit-animation: load 1.04s ease infinite;
+		}
+		
+		 @-webkit-keyframes load{
+            0%{
+                opacity: 1;
+            }
+            100%{
+                opacity: 0.2;
+            }
+        }
+        .load span:nth-child(1){
+            left: 0;
+            top: 50%;
+            margin-top:-5px;
+            -webkit-animation-delay:0.13s;
+        }
+        .load span:nth-child(2){
+            left: 10px;
+            top: 20px;
+            -webkit-transform: rotate(45deg);
+            -webkit-animation-delay:0.26s;
+        }
+        .load span:nth-child(3){
+            left: 50%;
+            top: 10px;
+            margin-left: -15px;
+            -webkit-transform: rotate(90deg);
+            -webkit-animation-delay:0.39s;
+        }
+        .load span:nth-child(4){
+            top: 20px;
+            right:10px;
+            -webkit-transform: rotate(135deg);
+            -webkit-animation-delay:0.52s;
+        }
+        .load span:nth-child(5){
+            right: 0;
+            top: 50%;
+            margin-top:-5px;
+            -webkit-transform: rotate(180deg);
+            -webkit-animation-delay:0.65s;
+        }
+        .load span:nth-child(6){
+            right: 10px;
+            bottom:20px;
+            -webkit-transform: rotate(225deg);
+            -webkit-animation-delay:0.78s;
+        }
+        .load span:nth-child(7){
+            bottom: 10px;
+            left: 50%;
+            margin-left: -15px;
+            -webkit-transform: rotate(270deg);
+            -webkit-animation-delay:0.91s;
+        }
+        .load span:nth-child(8){
+            bottom: 20px;
+            left: 10px;
+            -webkit-transform: rotate(315deg);
+            -webkit-animation-delay:1.04s;
+        }
+		
+
+	</style>
+	<body>
+		<div id="main">
+			<div class="title">InfiniteScroll</div>
+			<ul id="list">
+				<!--<li></li>-->
+				
+			</ul>
+			<div class="load">
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		</div>
+		<script>
+			var list = document.getElementById("list");
+			var load = document.getElementsByClassName("load")[0];
+			function selfAdaptation(){
+				window.onresize = render;
+			}
+			
+			function render(){
+				var count = parseInt(document.body.scrollHeight/50);
+				for(var i = 0;i<count;i++){
+					list.innerHTML += "<li>"+i+"</li>";
+				}
+			}
+			
+			function judge(){
+//				console.log(document.body.scrollHeight+"-"+document.body.scrollTop)
+				if(document.body.scrollHeight-document.body.scrollTop < window.innerHeight+10){
+					render();
+					setTimeout(judge,3000);
+				}
+				setTimeout(judge,3000);
+			}
+		
+			function init(){
+				render();
+				selfAdaptation();
+				judge();
+			}
+			
+			init();
+		</script>
+	</body>
+</html>
