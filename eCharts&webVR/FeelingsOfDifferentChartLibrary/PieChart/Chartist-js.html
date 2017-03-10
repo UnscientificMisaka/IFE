@@ -2,8 +2,47 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>饼状图</title>
+		<link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+		<script src="../lib/chartist.js"></script>
+		<style>
+			.main{
+				width: 1200px;
+				height: 400px;
+			}
+		</style>
 	</head>
 	<body>
+		<div class="main"></div>
+		<script>
+			var academy = ["机械","外国语","经管","计算机","土木","数理","艺术","教育","电气","延陵"];
+			var salary = [3769,3769,3529,3768,3304,3653,3757,3727,3457,3602];
+	
+			var responsiveOptions = [
+			  ['screen and (min-width: 640px)', {
+			    chartPadding: 30,
+			    labelOffset: 100,
+			    labelDirection: 'explode',
+			    labelInterpolationFnc: function(value) {
+			      return value;
+			    }
+			  }],
+			  ['screen and (min-width: 1024px)', {
+			    labelOffset: 80,
+			    chartPadding: 20
+			  }]
+			];
+	
+			
+			new Chartist.Pie('.main', {
+			  labels: academy,
+			  series: salary
+			}, {
+			  labelInterpolationFnc: function(value) {
+    			return value
+    			},
+    			responsiveOptions
+			});
+		</script>
 	</body>
 </html>

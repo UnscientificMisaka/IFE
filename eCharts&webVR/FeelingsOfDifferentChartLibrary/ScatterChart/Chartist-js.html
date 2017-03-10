@@ -2,8 +2,42 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>散点图</title>
+		<link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+		<script src="../lib/chartist.js"></script>
+		<style>
+			.main{
+				width: 1200px;
+				height: 400px;
+			}
+			
+			.ct-point {
+			    stroke-width: 1px;
+			    stroke-linecap: round;
+			}
+		</style>
 	</head>
 	<body>
+		<div class="main"></div>
+		<script>
+			var randomArray = [];
+			for(var i = 0;i<100000;i++){
+				randomArray.push(100000*Math.random());
+			}
+//			var academy = ["机械","外国语","经管","计算机","土木","数理","艺术","教育","电气","延陵"];
+			new Chartist.Line('.main', {
+			  labels: [0],
+			  series: [
+			    randomArray
+			  ],
+			}, {
+			  showLine : false,
+			  fullWidth: true,
+			  chartPadding: {
+			    right: 40
+			  },
+			  
+			});
+		</script>
 	</body>
 </html>
