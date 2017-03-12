@@ -3,16 +3,67 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>动态数据绑定(一)</title>
-		
 	</head>
 	<body>
+		<h4>// 要实现的结果如下：</h4>
+		<h4>app1.data.name // 你访问了 name</h4>
+		<h4>app2.data.university // 你访问了 university</h4>
+		<h4>app1.data.age = 100;  // 你设置了 age，新的值为100</h4>
+		<h4>app2.data.major = 'science'  // 你设置了 major，新的值为 scienc</h4>
+			
 
 
-		<script>
-
+		<script>	
+//			传入的data为对象
+			function Observer(data){
+				this.data = data;
+				this.walk(data);
+			}
+			
+//			p继承observer
+			let p = Observer.prototype;
+			p.walk = function(obj){
+				let val;
+				for(let key in obj){
+					if(obj.hasOwnProperty(key)){
+						val = obj[key];
+						if(typeof val === "object"){
+							new Observer(val);
+						}
+						this.convert(key,val);
+					}
+				}
+			};
+			
+			p.convert = function(key,val){
+				Object.defineProperty(this.data,key,{
+					enumerable: true,
+					configurable: true,
+					get: function(){
+						console.log("您访问了" + key);
+						return val;
+					},
+					set: function(newVal){
+						console.log("您设置了" + key);
+						console.log("新的"+key+"="+newVal);
+						if(newVal === val){
+							return;
+						}
+						val = newVal;
+					}
+				})
+			}
+			
+			let app1 = new Observer({
+			  name: 'youngwind',
+			  age: 25
+			});
+			
+			let app2 = new Observer({
+			  university: 'bupt',
+			  major: 'computer'
+			});
+						
 		</script>
-			
-			
-	
 	</body>
 </html>

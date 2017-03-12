@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>树形组件</title>
+	</head>
+	<style>
+		div{
+			margin: 0;
+			padding: 0;
+		}
+		
+		li{
+			list-style: none;
+		}
+		
+		#menu{
+			margin: 0 100px;
+		}
+		
+		.folder{
+			line-height: 20px;
+			padding-left: 2px;
+			background: url(folder.png) no-repeat;
+			/*background-size: 20px 20px;*/
+		}
+		
+		.folder img{
+			position: relative;
+			left: -30px;
+		}
+		
+		.file li{
+			margin-bottom: 5px;
+			padding-left: 20px;
+			background: url(file.png) no-repeat;
+			background-size: 20px 20px;
+		}
+	</style>
+	<body>
+		<div id="menu">
+<!--
+				<div class="folder"><img class="parentImg" src="tree_fold.png">父级文件
+					<ul class="file" id="file">
+						<li>1</li>
+						<li>2</li>
+						<li>3</li>
+					</ul>
+				</div>
+				
+
+
+				<div class="folder"><img class="parentImg" src="tree_fold.png">父级文件
+					<ul class="file" id="file">
+						<li>1</li>
+						<div class="folder"><img class="parentImg" src="tree_fold.png">父级文件
+							<ul class="file" id="file">
+								<li>1</li>
+								<li>2</li>
+								<li>3</li>
+							</ul>
+						</div>
+					</ul>
+				</div>-->
+
+			
+		</div>
+		<script>
+			var nodes = [ 
+			{
+				name: "父节点1", 
+				children: [
+					{name: "子节点1"}, 
+					{name: "子节点2"} 
+				]
+			},
+			{
+				name: "父节点2",
+				children: [
+					{
+						name: "子节点3"
+					},
+					{
+						name: "子节点4",
+						children:[
+							{
+								name:"子节点5"
+							} 
+						]
+					} 
+				]
+			}];
+			
+			var folderName = [];
+			var count = 1;
+			var parentImg = document.getElementsByClassName("parentImg");
+			var folder = document.getElementsByClassName("folder");
+			var menu = document.getElementById("menu");
+
+
+			function parse(nodes){
+				if(nodes instanceof Array){
+					for(var i = 0;i<nodes.length;i++){
+						if(nodes[i].children){
+							menu.innerHTML += "<div class='folder'><img class='parentImg' src='tree_fold.png'>"+nodes[i].name+"<ul class='file' id='file"+i+"'></ul></div>";
+						}
+						var files = document.getElementById("file"+i);
+						for(var m = 0;m<nodes[i].children.length;m++){
+							files.innerHTML += "<li id='child"+i+"'>"+nodes[i].children[m].name+"</li>";
+							if(nodes[i].children[m].children){
+								var child = document.getElementById("child"+m);
+							
+							}
+							parse(nodes[i].children[m]);
+						}
+						
+					}
+				}
+				
+			}
+			parse(nodes)
+			
+			
+
+			function changeIcon(i){
+				return function(){
+					var child = folder[i].querySelector("#file"+i);
+					if(parentImg[i].src == "http://127.0.0.1:8020/IFE/nuomi/Tree/tree_unfold.png"){
+						parentImg[i].src = "tree_fold.png";
+						child.style.display = "";
+					}else{
+						parentImg[i].src = "tree_unfold.png";
+						child.style.display = "none";
+					}
+				}
+				
+			}
+			
+			function handle(){
+				for(var i = 0;i<parentImg.length;i++){
+					parentImg[i].onclick = changeIcon(i);						
+				}
+				
+			}
+			
+			function init(){
+				handle();
+			}
+			
+			init();
+		</script>
+	</body>
+</html>

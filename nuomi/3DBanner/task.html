@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>3D轮播</title>
+	</head>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		
+		li{
+			list-style: none;
+			float: left;
+		}
+		
+		img{
+			width: 800px;
+			height: 500px;
+		}
+		
+		.container{
+			/*width: 800px;*/
+		}
+		
+		.show{
+			width: 1000%;
+		}
+		
+		.first{
+			-webkit-transform: scaleZ(5) rotateX(45deg);
+			
+		}
+		
+		
+		
+	</style>
+	<body>
+		<div class="container">
+			<ul class="show">
+				<li class="first"><img src="1.jpg"/></li>
+				<li class="second"><img src="2.jpg"/></li>
+				<li class="third"><img src="3.jpg"/></li>
+			</ul>
+		</div>
+	</body>
+</html>
