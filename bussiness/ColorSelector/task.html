@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>ColorSelector</title>
+	
+	</head>
+	<style>	
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		
+		#canvas:hover{
+			cursor: crosshair;
+		}
+		
+		#cursor{
+			display: none;
+			position: absolute;
+			width: 2px;
+			height: 2px;
+			border: 1px solid #000;
+			border-radius: 50%;
+		}
+		
+		form{
+			/*float: right;*/
+		}
+		
+		input{
+			width: 40px;
+		}
+	</style>
+	<body>
+		<canvas id="canvas" width="296" height="256"></canvas>
+		<span id="cursor"></span>
+		<form>
+			<label>R</label>
+			<input type="number" name="RGB" value="255" max="255" min="0"/>
+			<label>G</label>
+			<input type="number" name="RGB" value="0" max="255" min="0" />
+			<label>B</label>
+			<input type="number" name="RGB" value="0" max="255" min="0" />
+		</form>
+		
+		<form>
+			<label>H</label>
+			<input type="number" name="HSL" value="0" />
+			<label>S</label>
+			<input type="number" name="HSL" value="0"/>
+			<label>L</label>
+			<input type="number" name="HSL" value="0"/>
+		</form>
+
+		<script>
+			var c = document.getElementById("canvas");
+			var ctx = c.getContext("2d");
+			var rgbFormData = document.getElementsByName("RGB");
+			var hslFormData = document.getElementsByName("HSL");
+			var cursor = document.getElementById("cursor");
+			var flag = 0;
+			
+			function render(){
+				var gradientBar = ctx.createLinearGradient(0, 0, 0, 256);
+			    gradientBar.addColorStop(0, 'rgb(255,0,0)');//红
+			    gradientBar.addColorStop(1 / 7, 'rgb(255,125,0)');//橙
+			    gradientBar.addColorStop(2 / 7, 'rgb(255,255,0)');//黄
+			    gradientBar.addColorStop(3 / 7, 'rgb(0,255,0)');//绿
+			    gradientBar.addColorStop(4 / 7, 'rgb(0,0,255)');//蓝
+			    gradientBar.addColorStop(5 / 7, 'rgb(0,255,255)');//靛
+			    gradientBar.addColorStop(6 / 7, 'rgb(255,0,255)');//紫
+			    gradientBar.addColorStop(7 / 7, 'rgb(255,0,0)');//红
+			    ctx.fillStyle = gradientBar;
+			    ctx.fillRect(0, 0, 20, 256);//左上角xy,宽度，高度
+			}
+			
+			function getMousePosition(event){
+				var e = event || window.event;
+					return {
+						"X":e.clientX,
+						"Y":e.clientY
+					}
+			}
+			
+			function renderCursor(){
+				var pos = getMousePosition(event);
+				//本意是在除了bar和show部分点击外不显示小圆圈，但是posX的坐标在canvas中表现不一致
+//				if(20<pos.X<40){
+//					cursor.style.display="none";
+//				}
+				
+				cursor.style.display="inline-block";
+				cursor.style.left = pos.X + "px";
+				cursor.style.top = pos.Y + "px";
+			}
+			
+			function getImageData(){
+				var pos = getMousePosition(event);
+				renderCursor();
+				console.log(ctx.getImageData(pos.X,pos.Y,1,1).data)
+//				console.log("x:"+pos.X+"  y:"+pos.Y);
+				rgbFormData[0].value = ctx.getImageData(pos.X,pos.Y,1,1).data[0];
+				rgbFormData[1].value = ctx.getImageData(pos.X,pos.Y,1,1).data[1];
+				rgbFormData[2].value = ctx.getImageData(pos.X,pos.Y,1,1).data[2];
+				if(pos.X<20&&pos.Y<256){
+					show();
+				}
+				rgbToHsl();
+			}
+			
+			function getRGBFormData(){
+				var str = 'rgb('+rgbFormData[0].value+','+rgbFormData[1].value+','+rgbFormData[2].value+')';
+				return str;
+			}
+			
+			function show(flag){
+				var gradientRect = ctx.createLinearGradient(0, 0, 0, 256);
+				var str = getRGBFormData();
+//				console.log(str);
+				gradientRect.addColorStop(0, 'rgb(255,255,255)');
+			    gradientRect.addColorStop(1, str);
+			    ctx.fillStyle = gradientRect;
+			    ctx.fillRect(40, 0, 256, 256);//左上角xy,宽度，高度
+			    if(flag){
+			    	cursor.style.display="inline-block";
+					cursor.style.left = 294 + "px";
+					cursor.style.top =  254 + "px";
+			    }
+			}
+	
+			function rgbToHsl(){
+				var result = [];
+				for(var i = 0;i<rgbFormData.length;i++){
+					result[i] = rgbFormData[i].value/255;
+//					console.log()
+				}
+				var rgbMax = result.sort(sortNumber)[0];
+				var rgbMin = result.sort(sortNumber)[2];
+				hslFormData[2].value = (rgbMax + rgbMin)/2;
+				if(rgbMax == rgbMin){
+					hslFormData[1].value = 0;
+					hslFormData[0].value = 0;
+				}
+				if(hslFormData[2].value<0.5){
+					hslFormData[1].value = (rgbMax - rgbMin)/(rgbMax + rgbMin);
+				}
+				if(hslFormData[2].value>=0.5){
+					hslFormData[1].value = (rgbMax - rgbMin)/(2 - rgbMax - rgbMin);
+				}
+				if(rgbFormData[0] = rgbMax){
+					hslFormData[0] = (rgbFormData[1] - rgbFormData[2])/(rgbMax - rgbMin);
+				}
+				if(rgbFormData[1] = rgbMax){
+					hslFormData[0] = 2 + (rgbFormData[2] - rgbFormData[0])/(rgbMax - rgbMin);
+				}
+				if(rgbFormData[2] = rgbMax){
+					hslFormData[0] = 4 + (rgbFormData[0] - rgbFormData[1])/(rgbMax - rgbMin);
+				}
+				hslFormData[0] = hslFormData[0] * 60;
+				if(hslFormData[0]<0){
+					hslFormData = hslFormData + 360;
+				}
+				console.log(hslFormData)
+			}
+			
+			
+			function sortNumber(a,b){
+				return b - a;
+			}
+			
+			function bind(){
+				c.onclick = getImageData;
+				for(var i = 0;i<rgbFormData.length;i++){
+					rgbFormData[i].onchange = function(){
+						flag = 1;
+						show(flag);//虽然对i应该用闭包，但都能触发事件就可以了..
+						rgbToHsl();
+					}
+//					hslFormData[i].onchange = change;
+				}
+			}
+			
+			function onload(event){
+				var e = event || window.event;
+				e.clientX = 0;
+				e.clientY = 0;
+			}
+	
+			function init(){
+				render();
+				bind();
+				show(flag);
+			}
+			
+			init();
+			 
+		</script>
+	</body>
+</html>

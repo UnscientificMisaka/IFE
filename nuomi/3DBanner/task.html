@@ -29,8 +29,27 @@
 		}
 		
 		.first{
-			-webkit-transform: scaleZ(5) rotateX(45deg);
 			
+			-webkit-animation: test 2s infinite;
+			perspective:150;
+			perspective-origin: 10% 10%;
+			-webkit-perspective:150;	/* Safari 和 Chrome */
+			-webkit-perspective-origin: 10% 10%;
+	
+		}
+		
+		@keyframes test{
+			from{
+				transform: scaleY(1) scaleX(1);
+				-webkit-perspective:150;
+				-webkit-perspective-origin: 10% 10%;
+				
+			}
+			to{
+				transform: scaleY(0.7) scaleX(0.5);
+				-webkit-perspective:500;	/* Safari 和 Chrome */
+				-webkit-perspective-origin: 100% 10%
+			}
 		}
 		
 		

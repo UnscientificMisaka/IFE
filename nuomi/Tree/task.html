@@ -28,6 +28,7 @@
 		.folder img{
 			position: relative;
 			left: -30px;
+			z-index: 999;
 		}
 		
 		.file li{
@@ -39,29 +40,6 @@
 	</style>
 	<body>
 		<div id="menu">
-<!--
-				<div class="folder"><img class="parentImg" src="tree_fold.png">父级文件
-					<ul class="file" id="file">
-						<li>1</li>
-						<li>2</li>
-						<li>3</li>
-					</ul>
-				</div>
-				
-
-
-				<div class="folder"><img class="parentImg" src="tree_fold.png">父级文件
-					<ul class="file" id="file">
-						<li>1</li>
-						<div class="folder"><img class="parentImg" src="tree_fold.png">父级文件
-							<ul class="file" id="file">
-								<li>1</li>
-								<li>2</li>
-								<li>3</li>
-							</ul>
-						</div>
-					</ul>
-				</div>-->
 
 			
 		</div>
@@ -92,33 +70,64 @@
 			}];
 			
 			var folderName = [];
-			var count = 1;
+			var count = -1;
 			var parentImg = document.getElementsByClassName("parentImg");
 			var folder = document.getElementsByClassName("folder");
 			var menu = document.getElementById("menu");
-
-
+			
 			function parse(nodes){
 				if(nodes instanceof Array){
+				
+					
 					for(var i = 0;i<nodes.length;i++){
 						if(nodes[i].children){
-							menu.innerHTML += "<div class='folder'><img class='parentImg' src='tree_fold.png'>"+nodes[i].name+"<ul class='file' id='file"+i+"'></ul></div>";
-						}
-						var files = document.getElementById("file"+i);
-						for(var m = 0;m<nodes[i].children.length;m++){
-							files.innerHTML += "<li id='child"+i+"'>"+nodes[i].children[m].name+"</li>";
-							if(nodes[i].children[m].children){
-								var child = document.getElementById("child"+m);
 							
+							menu.innerHTML += "<div class='folder'><img class='parentImg' src='tree_fold.png'>"+nodes[i].name+"<ul class='file' id='file"+i+"'></ul></div>";
+//						
+							var files = document.getElementById("file"+i);
+							for(var m = 0;m<nodes[i].children.length;m++){
+								files.innerHTML += "<li id='child"+i+m+"'>"+nodes[i].children[m].name+"</li>";
+//								alert(nodes[i].children[m] instanceof Array)
+								if(nodes[i].children[m].children instanceof Array){
+									alert("test")
+//									parse(nodes[i].children[m]);
+									var childs = document.getElementById("child"+i+m);
+//									parse(nodes[i].children[m])
+									childs.innerHTML = "<div class='folder'><img class='parentImg' src='tree_fold.png'>"+nodes[i].children[m].name+"<ul class='file' id='file"+i+"'></ul></div>";
+								
+								}
+									
 							}
-							parse(nodes[i].children[m]);
+								
+							
 						}
 						
 					}
-				}
-				
+				}				
 			}
-			parse(nodes)
+			parse(nodes);
+
+//			function parse(nodes){
+//				if(nodes instanceof Array){
+//					for(var i = 0;i<nodes.length;i++){
+//						if(nodes[i].children){
+//							menu.innerHTML += "<div class='folder'><img class='parentImg' src='tree_fold.png'>"+nodes[i].name+"<ul class='file' id='file"+i+"'></ul></div>";
+//						}
+//						var files = document.getElementById("file"+i);
+//						for(var m = 0;m<nodes[i].children.length;m++){
+//							files.innerHTML += "<li id='child"+i+"'>"+nodes[i].children[m].name+"</li>";
+//							if(nodes[i].children[m].children){
+//								var child = document.getElementById("child"+m);
+//							
+//							}
+//							parse(nodes[i].children[m]);
+//						}
+//						
+//					}
+//				}
+//				
+//			}
+//			parse(nodes)
 			
 			
 
