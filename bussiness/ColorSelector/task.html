@@ -20,7 +20,7 @@
 			position: absolute;
 			width: 2px;
 			height: 2px;
-			border: 1px solid #000;
+			border: 1px solid #fff;
 			border-radius: 50%;
 		}
 		
@@ -46,11 +46,11 @@
 		
 		<form>
 			<label>H</label>
-			<input type="number" name="HSL" value="0" />
+			<input type="number" name="HSL" value="0" max="360" min="0"/>
 			<label>S</label>
-			<input type="number" name="HSL" value="0"/>
+			<input type="number" name="HSL" value="0" max="1" min="0" step="0.01"/>
 			<label>L</label>
-			<input type="number" name="HSL" value="0"/>
+			<input type="number" name="HSL" value="0" max="1" min="0" step="0.01"/>
 		</form>
 
 		<script>
@@ -133,35 +133,91 @@
 				var result = [];
 				for(var i = 0;i<rgbFormData.length;i++){
 					result[i] = rgbFormData[i].value/255;
-//					console.log()
 				}
 				var rgbMax = result.sort(sortNumber)[0];
 				var rgbMin = result.sort(sortNumber)[2];
+				console.log(hslFormData[2].value)
 				hslFormData[2].value = (rgbMax + rgbMin)/2;
 				if(rgbMax == rgbMin){
 					hslFormData[1].value = 0;
 					hslFormData[0].value = 0;
+				}else{
+					if(hslFormData[2].value<0.5){
+						hslFormData[1].value = (rgbMax - rgbMin)/(rgbMax + rgbMin);
+					}else{
+						hslFormData[1].value = (rgbMax - rgbMin)/(2 - rgbMax - rgbMin);
+					}	
 				}
-				if(hslFormData[2].value<0.5){
-					hslFormData[1].value = (rgbMax - rgbMin)/(rgbMax + rgbMin);
+				if(rgbFormData[0].value/255 == rgbMax){
+					hslFormData[0].value = Math.round((rgbFormData[1].value/255 - rgbFormData[2].value/255)/(rgbMax - rgbMin));
 				}
-				if(hslFormData[2].value>=0.5){
-					hslFormData[1].value = (rgbMax - rgbMin)/(2 - rgbMax - rgbMin);
+				if(rgbFormData[1].value/255 == rgbMax){
+					hslFormData[0].value = 2 + Math.round((rgbFormData[2].value/255 - rgbFormData[0].value/255)/(rgbMax - rgbMin));
 				}
-				if(rgbFormData[0] = rgbMax){
-					hslFormData[0] = (rgbFormData[1] - rgbFormData[2])/(rgbMax - rgbMin);
+				if(rgbFormData[2].value/255 == rgbMax){
+					hslFormData[0].value = 4 + Math.round((rgbFormData[0].value/255 - rgbFormData[1].value/255)/(rgbMax - rgbMin));
 				}
-				if(rgbFormData[1] = rgbMax){
-					hslFormData[0] = 2 + (rgbFormData[2] - rgbFormData[0])/(rgbMax - rgbMin);
+				hslFormData[0].value = hslFormData[0].value * 60;
+				console.log(hslFormData[0].value)
+				if(hslFormData[0].value<0){
+					hslFormData[0].value = parseInt(hslFormData[0].value) + 360;
 				}
-				if(rgbFormData[2] = rgbMax){
-					hslFormData[0] = 4 + (rgbFormData[0] - rgbFormData[1])/(rgbMax - rgbMin);
+			}
+			
+			function hslToRgb(){
+				var tempL;
+				var temp;
+				var result = [];
+				
+				if(rgbFormData[0].value == ""||rgbFormData[1].value== ""||rgbFormData[2].value== ""){
+					alert("无效的hsl值");
+					return;
 				}
-				hslFormData[0] = hslFormData[0] * 60;
-				if(hslFormData[0]<0){
-					hslFormData = hslFormData + 360;
+				
+				if(hslFormData[1].value == 0){
+					rgbFormData[0].value = hslFormData[2].value;
+					rgbFormData[1].value = hslFormData[2].value;
+					rgbFormData[2].value = hslFormData[2].value;
+				}else{
+					if(hslFormData[2].value<0.5){
+						tempL = hslFormData[2].value * (1 + hslFormData[1].value);
+					}else{
+						tempL = hslFormData[2].value + hslFormData[1].value - hslFormData[2].value * hslFormData[1].value;
+					}
 				}
-				console.log(hslFormData)
+				temp = 2 * hslFormData[2].value - tempL;
+				result[0] = hslFormData[0].value/360;
+				result[1] = hslFormData[1].value;
+				result[2] == hslFormData[2].value;
+				result[0] = result[0] + 1/3; 
+				result[1] = result[0];
+				result[2] = result[0] - 1/3;
+				for(var i = 0;i<result.length;i++){
+					if(result[i]<0){
+						result[i] = result[i] + 1;
+					}else{
+						if(result[i]>1){
+							result[i] = result[i] - 1;
+						}
+					}
+					
+					if(result[i] * 6 < 1){
+						rgbFormData[i].value = Math.round(temp + (tempL - temp) * 6 * result[i]); 
+					}else if(result[i] * 2 < 1){
+						rgbFormData[i].value = Math.round(tempL);
+					}else if(result[i] * 3 < 2){
+						rgbFormData[i].value = Math.round(temp + (tempL-temp)*(2/3-result[i])*6);
+					}else{
+						rgbFormData[i].value = Math.round(temp);
+					}
+	
+					
+				}
+//				for(var i = 0;i<3;i++){
+//					console.log(rgbFormData[i].value)
+//				}
+			
+				
 			}
 			
 			
@@ -177,7 +233,11 @@
 						show(flag);//虽然对i应该用闭包，但都能触发事件就可以了..
 						rgbToHsl();
 					}
-//					hslFormData[i].onchange = change;
+					hslFormData[i].onchange = function(){
+						flag = 1;
+						hslToRgb();
+						show(flag);
+					}
 				}
 			}
 			
